@@ -2,7 +2,7 @@ require("./models/db");
 
 //Now it's time to start the express server so will add below request statement for express with const express
 const express = require("express");
-
+const Handlebars = require("handlebars");
 //First of all we will add the below request statement(path) for the path which is already the inside node.js application, In order to work with path in node.js application
 const path = require("path");
 
@@ -26,6 +26,7 @@ app.use(
   })
 );
 app.use(bodyparser.json()); // We want to convert that into a JSON format
+//app.use(express.static("public"));
 //Now let's configure middleware for handlebars, we Will set the view directory for this application
 app.set("views", path.join(__dirname, "/views/")); // 1st parameter is views and 2nd parameter we have to pass the folder directory where we save the views for this application
 //In path.join method we have first parameter is reserved __dirname variable which is base file directory for this project, In that we have to join /views/ folder
@@ -37,6 +38,7 @@ app.engine(
     extname: "hbs",
     defaultLayout: "mainLayout",
     layoutsDir: __dirname + "/views/layouts/",
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
   })
 ); //as a first parameter have hbs, then we call function from the express handlebars inside that we have an object it may contain the configuration details for the handlebars
 // In the above code set the extension for handlebars view files it will be 'hbs', then we will set the default view for this application default layout is main layout
